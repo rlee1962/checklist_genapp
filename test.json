@@ -1,0 +1,4824 @@
+{
+    "TaskName": "ASE 1 Preflight",
+    "TaskDescription": "This checklist outlines the responsibilities and equipment operating procedures to be performed by the ASE 1 on the RIVET JOINT Baseline 12 aircraft.",
+    "Directory": "RJ ASE1.ASE1",
+    "SupportedSimModes": ["Training"],
+    "TaskLevels": ["LSV_Front_Section_MaintenanceRack", "LSV_ELINT-Interactables", "LSV_Processor-CDRacks"],
+    "SupportingLevels": ["RJ_ASE1_Preflight"],
+    "ForcedLinear": true,
+    "Objectives": [{
+            "Description": "Setup actors to default, should be hidden",
+            "Invisible": true,
+            "Hidden": true,
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "Ladder",
+                    "PreSetState": 0
+                },
+                {
+                    "Actor": "CrewEntryHatch",
+                    "PreSetState": 1
+                },
+                {
+                    "Actor": "ASE1_Display2",
+                    "PreSetState": 0
+                }
+            ]
+        },
+        {
+            "Description": "1. Review AFTO Form 781s",
+            "SubDescription": "Do not energize any equipment that has a Red X condition\nNotify crew of any conditions affecting mission accomplishment",
+            "ObjectiveClass": "FloatingMenuEventObjective",
+            "BindEvent": "HighlightedDocOpened",
+            "ActorControls": [{
+                "Actor": "Player",
+                "PreControls": [{
+                        "Cmd": "HudNotify",
+                        "Args": [true, "Open Floating Menu to Review AFTO Form 781s"]
+                    },
+                    {
+                        "Cmd": "DocumentHighlight",
+                        "Args": [true, "AFTO 781s"]
+                    }
+                ],
+                "PostControls": [{
+                        "Cmd": "HudNotify",
+                        "Args": [false]
+                    },
+                    {
+                        "Cmd": "DocumentHighlight",
+                        "Args": [false]
+                    }
+                ]
+            }]
+        },
+        {
+            "Description": "NOTE\nMaintenance Station",
+            "SubDescription": "As all recon area TRs are tied on a common power bus, load meter readings should be approximately equal at all times. Unequal or zero load meter readings are indicative of possible TR malfunctions.\nIf any recon area TR fails, the load meters on the Mission Power Control Panel must be monitored and 28 VDC power must be managed. Attempt to reduce the non-essential DC load of the remaining TR units to prevent a possible overload condition.",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_Pos17General",
+                "OverrideMainText": "<LargeText>NOTE:</>\n\n <SmallText>As all recon area TRs are tied on a common power bus, load meter readings should be approximately equal at all times. Unequal or zero load meter readings are indicative of possible TR malfunctions.</>\n <SmallText>If any recon area TR fails, the load meters on the Mission Power Control Panel must be monitored and 28 VDC power must be managed. Attempt to reduce the non-essential DC load of the remaining TR units to prevent a possible overload condition.</>",
+                "OverrideButtonText": "ACKNOWLEDGED",
+                "ScrollBlockButton": true
+            }]
+        },
+        {
+            "Description": "2A. Mission Power Control Panel: Turn on 28 VDC Switch (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "MissionPowerControlPanel_28VDCSwitch",
+                "WaitState": "Up",
+                "Enum": "EToggleSwitch2State"
+            }]
+        },
+        {
+            "Description": "2A1. Verify that DC Bus ON light is illuminated",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_DCBusIndicatorLight"
+            }]
+        },
+        {
+            "Description": "2A2. Check 28 VDC Volt/Load Meters",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_28VDCVoltmeter"
+            }]
+        },
+        {
+            "Description": "2B. Mission Power Control Panel: Turn on 115 VAC 400 Hz (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "MissionPowerControlPanel_115V400HZSwitch",
+                "WaitState": "Up",
+                "Enum": "EToggleSwitch2State"
+            }]
+        },
+        {
+            "Description": "3A. Processor Rack CBP: 28 VDC (UP)",
+            "SubDescription": " MAINT STA PWR CNTRL (UP)\n MAINT STA SUPPLY PWR (UP)\n POSN 14 SUPPLY PWR (UP)\n POSN 17 SUPPLY PWR (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaPwrCntrl",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaSupplyPwr28VDC",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SupplyPwr",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SupplyPwr",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_EDT101CntrlPosn14/17",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14/17CmfrtFans",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_ERS112No1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_ERS112No2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_ERS112No3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_GsyncNo2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_GsyncNo3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaPnlLights",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14/17WorkLights",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PrcsrRackWorkLights",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PwrRecept28VDC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "3B. Processor Rack CBP: 115 VAC 400 Hz (ALL DOWN/OUT EXCEPT...)",
+            "SubDescription": " MAINT STA SUPPLY PWR (IN)\n POSN 14 SUPPLY PWR (IN)\n POSN 17 SUPPLY PWR (IN)\n MAINT STA SUPPLY PWR (UP)\n POSN 14 SUPPLY PWR (UP)\n POSN 17 SUPPLY PWR (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FilerPwrNo1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FilerPwrNo2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP5",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DRTPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_KVMSWNo2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPD",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCD",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1A",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1B",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1C",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1D",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2A",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2B",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2C",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2D",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3AMDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3BFDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3CSWP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_APA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_APB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_QPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RM",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_CPS",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_5",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_6",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_7",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_8",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_9",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LanSwPwr_SupplyNo1",
+                    "WaitState": "Out",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LanSwPwr_SupplyNo2",
+                    "WaitState": "Out",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DrawFansPrcsrRackBay1/3",
+                    "WaitState": "Out",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DrawFansPrscrRackSwitch",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaSupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaSupplyPwr115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SupplyPwr_155V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SupplyPwr_115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PwrRecept115V400HZ",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "4A. Turn ON Maintenance Station Power button",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "MaintStaPowerONButton",
+                "WaitState": "On",
+                "Enum": "EOnOff"
+            }]
+        },
+        {
+            "Description": "4B. Turn ON POSN 17 Power Switch",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "POSN17PowerButton",
+                "WaitState": "On",
+                "Enum": "EOnOff"
+            }]
+        },
+        {
+            "Description": "NOTE\nMaintenance Station",
+            "SubDescription": "The Power Monitor Warning indicator lights when the following thresholds have been exceeded for longer than three seconds:\nVoltage below 110 Volts or above 120 Volts\nFrequency below 380Hz or above 420Hz\nCurrent above 237.5 Amps",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_Pos17General",
+                "OverrideMainText": "<LargeText>NOTE:</>\n\n <SmallText>The Power Monitor Warning indicator lights when the following thresholds have been exceeded for longer than three seconds:</>\n<SmallText>Voltage below 110 Volts or above 120 Volts</>\n<SmallText>Frequency below 380Hz or above 420Hz</>\n<SmallText>Current above 237.5 Amps</>",
+                "OverrideButtonText": "ACKNOWLEDGED",
+                "ScrollBlockButton": true
+            }]
+        },
+        {
+            "Description": "5. Power Monitor Panel: Turn ON (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "PowerMonitorPanel_OnOffSwitch",
+                "WaitState": "Up",
+                "Enum": "EToggleSwitch2State"
+            }]
+        },
+        {
+            "Description": "5A. Power Monitor Panel: Turn the 'MAIN RCPT / RECON RCPT / MSN BUS' Selector knob to 'MAIN RCPT'",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "PowerMonitorPanel_RCPTSelectRotSwitch",
+                "WaitState": 0
+            }]
+        },
+        {
+            "Description": "5B. Power Monitor Panel: Verify proper indications (CHECK TOLERANCES)",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_PowerMonitorPanel",
+                "OverrideMainText": "Verify proper indications of Power Monitor Panel (below)",
+                "OverrideButtonText": "Verified"
+            }]
+        },
+        {
+            "Description": "5C. Power Monitor Panel: Push Warning PTT Button",
+            "ObjectiveClass": "StateCheckObjective",
+            "CanUndo": false,
+            "Actors": [{
+                "Actor": "PowerMonitorPanel_PwrSysParamTest",
+                "WaitState": "On",
+                "Enum": "EOnOff"
+            }]
+        },
+        {
+            "Description": "5C Cont. Verify Warning PTT Button extinguishes after release",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_PwrSysParamTest"
+            }]
+        },
+        {
+            "Description": "5D. Power Monitor Panel: Turn the 'MAIN RCPT / RECON RCPT / MSN BUS' Selector knob to 'MSN BUS'",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "PowerMonitorPanel_RCPTSelectRotSwitch",
+                "WaitState": 2
+            }]
+        },
+        {
+            "Description": "5E. Power Monitor Panel: Verify proper indications (CHECK TOLERANCES)",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_PowerMonitorPanel",
+                "OverrideMainText": "Verify proper indications of Power Monitor Panel (below)",
+                "OverrideButtonText": "Verified"
+            }]
+        },
+        {
+            "Description": "NOTE\nMaintenance Station",
+            "SubDescription": "All RECON maintenance personnel are required to periodically monitor rack and equipment temperatures via the ECS whenever any mission equipment is powered on.",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_Pos17General",
+                "OverrideMainText": "<LargeText>NOTE:</>\n\n <SmallText>All RECON maintenance personnel are required to periodically monitor rack and equipment temperatures via the ECS whenever any mission equipment is powered on.</>",
+                "OverrideButtonText": "ACKNOWLEDGED",
+                "ScrollBlockButton": true
+            }]
+        },
+        {
+            "Description": "CAUTION\nMaintenance Station",
+            "SubDescription": "A red marker indicates a sensor in the critical range. Equipment with temperatures in the critical range needs to be shut down to prevent permanent damage.",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_Pos17General",
+                "OverrideMainText": "<LargeText>CAUTION:</>\n\n <SmallText>A red marker indicates a sensor in the critical range. Equipment with temperatures in the critical range needs to be shut down to prevent permanent damage.</>",
+                "OverrideButtonText": "ACKNOWLEDGED",
+                "ScrollBlockButton": true
+            }]
+        },
+        {
+            "Description": "NOTE\nMaintenance Station",
+            "SubDescription": "115 VAC 60 Hz Tolerances: Volts = 115V +/-10, Freq. = 60Hz +/- .5Hz",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_Pos17General",
+                "OverrideMainText": "<LargeText>NOTE:</>\n\n <SmallText>115 VAC 60 Hz Tolerances: Volts = 115V +/-10, Freq. = 60Hz +/- .5Hz</>",
+                "OverrideButtonText": "ACKNOWLEDGED",
+                "ScrollBlockButton": true
+            }]
+        },
+        {
+            "Description": "6A. Mission Power Control Panel: Turn on 60 Hz Power Control Switches NO 2. and NO 3.",
+            "SubDescription": "Hold switch in 'UP' position for 2 seconds",
+            "ObjectiveClass": "HeldToggleSwitchObjective",
+            "Actors": [{
+                    "Actor": "MissionPowerControlPanel_ConvNo2Switch"
+                },
+                {
+                    "Actor": "MissionPowerControlPanel_ConvNo3Switch"
+                }
+            ],
+            "ActorControls": [{
+                    "Actor": "MissionPower3ControlPanelProgressBar",
+                    "PreControls": [{
+                        "Cmd": "SetInfo",
+                        "Args": ["2.0~>0.05"]
+                    }]
+                },
+                {
+                    "Actor": "MissionPower2ControlPanelProgressBar",
+                    "PreControls": [{
+                        "Cmd": "SetInfo",
+                        "Args": ["2.0~>0.05"]
+                    }]
+                }
+            ]
+        },
+        {
+            "Description": "6A. Cont. Mission Power Control Panel: 60 Hz Volt/Freq Meters (CHECK)",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                    "Actor": "ASE1Preflight_LookAt_ConvPower2Light"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_ConvPower3Light"
+                }
+            ]
+        },
+        {
+            "Description": "6A. Cont. Switch Conv. selection dial to Conv  NO. 2 ",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "MissionPowerControlPanel_ConvSelect_RotSwitch",
+                "WaitState": 1
+            }]
+        },
+        {
+            "Description": "6A. Cont. Mission Power Control Panel: Verify 115V 60Hz Volt/Freq Meters for Conv NO. 2",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                    "Actor": "ASE1Preflight_LookAt_115V60HZVoltmeter"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_115V60HZFreqMeter"
+                }
+            ]
+        },
+        {
+            "Description": "6A. Cont. Switch Conv. selection dial to Conv  NO. 3 ",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "MissionPowerControlPanel_ConvSelect_RotSwitch",
+                "WaitState": 2
+            }]
+        },
+        {
+            "Description": "6A. Cont. Mission Power Control Panel: Verify 115V 60Hz Volt/Freq Meters for Conv NO. 3",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                    "Actor": "ASE1Preflight_LookAt_115V60HZVoltmeter"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_115V60HZFreqMeter"
+                }
+            ]
+        },
+        {
+            "Description": "7. Put on ETD101 Headset.",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "ASE1_HEADSET",
+                "WaitState": 1
+            }]
+        },
+        {
+            "Description": "7 cont. Interphone: ETD101: PWR (ON)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "POSN17ETD101Button",
+                "WaitState": "On",
+                "Enum": "EOnOff"
+            }]
+        },
+        {
+            "Description": "ETD 101 Turning on...",
+            "Invisible": true,
+            "SubDescription": "ETD 101 Turning On",
+            "ObjectiveClass": "DelayObjective",
+            "Duration": 20.2
+        },
+        {
+            "Description": "7 cont. Inform ASE's: \"ASE's Cleared Power\"",
+            "ObjectiveClass": "ETD101Objective",
+            "BindEvent": "CallMAINT",
+            "Actor": "TouchscreenDisplayETD101_MaintenanceRack_2",
+            "ActorControls": [{
+                "Actor": "TouchscreenDisplayETD101_MaintenanceRack_2",
+                "PreControls": [{
+                    "Cmd": "SetInfo",
+                    "Args": ["No Info~>1"]
+                }]
+            }]
+        },
+        {
+            "Description": "7 cont. Interphone: ETD101: Push to Talk",
+            "SubDescription": "Hold Down Push to Talk Button for 2 seconds",
+            "ObjectiveClass": "HeldToggleSwitchObjective",
+            "Actors": [{
+                "Actor": "U94PTT"
+            }],
+            "ActorControls": [{
+                "Actor": "U94PTT_PROGRESSBAR",
+                "PreControls": [{
+                    "Cmd": "SetInfo",
+                    "Args": ["2.0~>ASE's Cleared Power"]
+                }]
+            }]
+        },
+        {
+            "Description": "NOTE\nMaintenance Station",
+            "SubDescription": "SPARE circuit breakers will NOT be energized in any of the following steps. PWR RECEPT will only be energized when utilized.",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_Pos17General",
+                "OverrideMainText": "<LargeText>NOTE:</>\n\n <SmallText>SPARE circuit breakers will NOT be energized in any of the following steps. PWR RECEPT will only be energized when utilized.</>",
+                "OverrideButtonText": "ACKNOWLEDGED",
+                "ScrollBlockButton": true
+            }]
+        },
+        {
+            "Description": "8A. Processor Rack CBP: 28 VDC: ALL UP EXCEPT...",
+            "SubDescription": "ERS112 NO. 3 (DOWN)\nGSYNC NO. 2 (DOWN)\nGSYNC NO. 3 (DOWN)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "ProcessorRackCircuitBreakerPanel_EDT101CntrlPosn14/17",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaPwrCntrl",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaSupplyPwr28VDC",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SupplyPwr",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SupplyPwr",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14/17CmfrtFans",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_ERS112No1",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_ERS112No2",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_ERS112No3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_GsyncNo2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_GsyncNo3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaPnlLights",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14/17WorkLights",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PrcsrRackWorkLights",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PwrRecept28VDC",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "8B. Processor Rack CBP: 115 VAC 400Hz (UP/IN)",
+            "SubDescription": "KVM SW NO. 2 (UP)\nLAN SW PWR SUPPLY NO. 1 (IN)\nLAN SW PWR SUPPLY NO. 2 (IN)\nPWR RECEPT (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FilerPwrNo1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FilerPwrNo2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP5",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DRTPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_KVMSWNo2",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPD",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCD",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1A",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1B",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1C",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1D",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2A",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2B",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2C",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2D",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3AMDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3BFDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3CSWP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_APA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_APB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_QPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RM",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_CPS",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_5",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_6",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_7",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_8",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_9",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LanSwPwr_SupplyNo1",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LanSwPwr_SupplyNo2",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DrawFansPrcsrRackBay1/3",
+                    "WaitState": "Out",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DrawFansPrscrRackSwitch",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaSupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaSupplyPwr115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SupplyPwr_155V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SupplyPwr_115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PwrRecept115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "8C. Processor Rack CBP: 115VAC 60Hz: ALL UP EXCEPT...",
+            "SubDescription": "Spares (DOWN)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SwitchView",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SwitchView",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MDO4104MaintSta",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PwrOutletMaintSta",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_AWGMaintSta",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FiberConvNDU",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintRacalSW",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_10",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintPrnt",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_11",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PwrOutlet",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PwrRecept115V60HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "9. Load Software (Filer Software Box)",
+            "ObjectiveClass": "SmartWaypointStateCheckObjective",
+            "Actors": [{
+                    "Actor": "FILER_DISK_0",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_1",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_2",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_3",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_4",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_5",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_6",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_7",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_8",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_9",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_10",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "FILER_DISK_11",
+                    "WaitState": 1
+                }
+            ],
+            "ActorControls": [{
+                    "Actor": "FILER_SOFTWARE_BOX",
+                    "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    }],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_0",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_0_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_1",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_1_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_2",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_2_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_3",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_3_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_4",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_4_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_5",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_5_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_6",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_6_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_7",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_7_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_8",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_8_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_9",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_9_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_10",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_10_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "FILER_DISK_11",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["FILER_DISK_11_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                }
+            ]
+        },
+        {
+            "Description": "9 cont. Secure Software (Filer Software Box)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "FILER_DISK_0",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_1",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_2",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_3",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_4",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_5",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_6",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_7",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_8",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_9",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_10",
+                    "WaitState": 2
+                },
+                {
+                    "Actor": "FILER_DISK_11",
+                    "WaitState": 2
+                }
+            ]
+        },
+        {
+            "Description": "9 cont. Load Software (Software Box 1)",
+            "ObjectiveClass": "SmartWaypointStateCheckObjective",
+            "Actors": [{
+                    "Actor": "NDU_Drive",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "ECP_Drive",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "NPC_Drive",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "MP_COMP_Drive",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "SP_NF_Drive",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "CDS_COMP_Drive",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "MPE_Drive",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "LDP_Drive",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "DDEK_Key",
+                    "WaitState": 1
+                }
+            ],
+            "ActorControls": [{
+                    "Actor": "LARGE_SOFTWARE_BOX_1",
+                    "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    }],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "ECP_Drive",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["ECP_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "NPC_Drive",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["NPC_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "NDU_Drive",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["NDU_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "MP_COMP_Drive",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["MP_COMP_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "CDS_COMP_Drive",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["CDS_COMP_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "MPE_Drive",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["MPE_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "SP_NF_Drive",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["SP_NF_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "LDP_Drive",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["LDP_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "DDEK_Key",
+                    "PreControls": [{
+                            "Cmd": "SetInfo",
+                            "Args": ["DDEK_Desk_Rest"]
+                        },
+                        {
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["DDEK_Desk_Rest"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                }
+            ]
+        },
+        {
+            "Description": "9 cont. Load Software (Software Box 3)",
+            "ObjectiveClass": "SmartWaypointStateCheckObjective",
+            "Actors": [{
+                    "Actor": "HSDC_A_DATA",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "HSDC_B_DATA",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "HSDC_C_DATA",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "HSDC_D_DATA",
+                    "WaitState": 1
+                }
+            ],
+            "ActorControls": [{
+                    "Actor": "LARGE_SOFTWARE_BOX_3",
+                    "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    }],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "HSDC_A_DATA",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["HSDC_A_DATA_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "HSDC_B_DATA",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["HSDC_B_DATA_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "HSDC_C_DATA",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["HSDC_C_DATA_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "HSDC_D_DATA",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["HSDC_D_DATA_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                }
+            ]
+        },
+        {
+            "Description": "9 cont. Load Software (Software Box 2)",
+            "ObjectiveClass": "SmartWaypointStateCheckObjective",
+            "Actors": [{
+                    "Actor": "XMP_DATA_1",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "XMP_DATA_2",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "XMP_DATA_3",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "XMP_DATA_4",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "DRTPC_Drive",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "DRTPC_HAF100_OP",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "DRTPC_SIPR_CIK",
+                    "WaitState": 1
+                },
+                {
+                    "Actor": "DRTPC_NPE_CIK",
+                    "WaitState": 1
+                }
+            ],
+            "ActorControls": [{
+                    "Actor": "LARGE_SOFTWARE_BOX_2",
+                    "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    }],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "XMP_DATA_1",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["XMP_DATA_1_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "XMP_DATA_2",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["XMP_DATA_2_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "XMP_DATA_3",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["XMP_DATA_3_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "XMP_DATA_4",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["XMP_DATA_4_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "DRTPC_Drive",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["DRTPC_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "DRTPC_HAF100_OP",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["DRTPC_HAF100_OP_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "DRTPC_SIPR_CIK",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["DRTPC_SIPR_CIK_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "DRTPC_NPE_CIK",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["DRTPC_NPE_CIK_Slot"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                }
+            ]
+        },
+        {
+            "Description": "10A. CD Rack CBP: 28 VDC: ALL UP EXCEPT...",
+            "SubDescription": " UIDM (DOWN)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "CDRackCircuitBreakerPanel_UIDM",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_MaintAreaOvhdLights",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_WorkLights",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_PwrRecept28VDC",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCSCntrlPnl",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LiquidHXCntrlPanel",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCCIntfcPnl",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_MRK501/500CntrlPnl",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCSPAORSVR&PumpStatus",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCSCmptrCntrl",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_FlowSensors",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_TempMonPressXdcrs",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCSValvesFC0",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCSValveMRK",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCSValvesLCCIntfc",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_PwrReceptFC2_28VDC",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "10B. CD Rack CBP: 115 VAC 400Hz ALL DOWN/OUT EXCEPT...",
+            "SubDescription": "NDU A *Unless NDUB is Utilized* (UP)\nECP (UP)\nIMP PWR SUPPLY (UP)\nNPC (UP)\nSIPR TOKEN PWR SUPPLY (UP)\nLCS PUMP 1 (IN)\nLCS PUMP 2 (IN)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_CDS",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_BP2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_NDU_A",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_NDU_B",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_ECP",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_IMPPwrSupply",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_NPC",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_BPI",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_TNT",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_JLP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_JRE",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_PwrRecept115V400HZ",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_SP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_MPE",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_5",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_6",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_SiprTokenPwrSupply",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_7",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_EAP139PreampLH",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_EAP139PreampRH",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_8",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_9",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCSPumpNo1",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCSPumpNo2",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_EPR262Block",
+                    "WaitState": "Out",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_PwrReceptFC2_115V400HZ",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "10C. CD Rack CBP: 115 VAC 60Hz ALL UP",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "CDRackCircuitBreakerPanel_VX900Switch",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_STEPhone",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_CDLANSwitch",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_CollNatRouter",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_HAF100X",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_UnclassDomainLANSwitch",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_FiberConvNDU",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_KG250No2&No3",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_10",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_BlackRtr",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_InverseMux",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_KVMSWNo4",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_KVMSWNo5",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_PwrOutletFC2",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_PwrOutletFC0",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_PwrOutlet",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_PwrRecept_115V60HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "11. Verify the following 8 CD Rack units are ON...",
+            "SubDescription": "NDU A\nBlack Router (ISDN)\nUNCLASS DOMAIN LAN SW\nECP\nNPC\nKG250 No. 2-3\nHAF100X\nCollateral NAT Router",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                    "Actor": "ASE1Preflight_LookAt_BlackRouterPwr"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_UnclassifiedDomainLANSwitchPwr"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_NDU_APwr"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_ECPPwr"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_NPCPwr"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_CDCBRack_KG-250Pwr"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_CDCBRack_HAF-100XPwr"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_CDCBRack_NATRouterPwr"
+                }
+            ],
+            "ActorControls": [{
+                "Actor": "UnclassifiedDomainLANSwitch_CD_Rack_1",
+                "PreControls": [{
+                    "Cmd": "Enable",
+                    "Args": [true]
+                }],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "NOTE\nMaintenance Station",
+            "SubDescription": "The ES752A must be fully booted prior to powering on any connected devices",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_Pos17General",
+                "OverrideMainText": "<LargeText>NOTE:</>\n\n <SmallText>The ES752A must be fully booted prior to powering on any connected devices</>",
+                "OverrideButtonText": "ACKNOWLEDGED",
+                "ScrollBlockButton": true
+            }]
+        },
+        {
+            "Description": "12. AEELS Rack CBP: 115 VAC 60Hz: IOLAN NO. 1/2 (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "28080_115V-60HZ_IOLAN-No1/2",
+                "WaitState": "Up",
+                "Enum": "EToggleSwitch2State"
+            }]
+        },
+        {
+            "Description": "13. AEELS Rack: Verify IOLAN NO. 1  Power ON",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_IOLAN_Pwr"
+            }],
+            "ActorControls": [{
+                "Actor": "IOLAN_AEELS_1",
+                "PreControls": [{
+                    "Cmd": "Enable",
+                    "Args": [true]
+                }],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "14. Processor Rack CBP: 115 VAC 400Hz",
+            "SubDescription": "MP (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FilerPwrNo1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FilerPwrNo2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MP",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP5",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DRTPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_KVMSWNo2",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPD",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCD",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1A",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1B",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1C",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1D",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2A",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2B",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2C",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2D",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3AMDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3BFDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3CSWP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_APA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_APB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_QPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RM",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_CPS",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_5",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_6",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_7",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_8",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_9",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LanSwPwr_SupplyNo1",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LanSwPwr_SupplyNo2",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DrawFansPrcsrRackBay1/3",
+                    "WaitState": "Out",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DrawFansPrscrRackSwitch",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaSupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaSupplyPwr115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SupplyPwr_155V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SupplyPwr_115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PwrRecept115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "15A. Maintenance Station: KVM Power (ON)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "POSN17KVMButton",
+                "WaitState": "On",
+                "Enum": "EOnOff"
+            }]
+        },
+        {
+            "Description": "15B. Maintenance Station: ETD101 Power (ON)",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_ETD101_Interphone"
+            }]
+        },
+        {
+            "Description": "15C. MP (VERIFY ON / KEY)",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_MPPowerON"
+            }]
+        },
+        {
+            "Description": "15C cont. MP (VERIFY ON / KEY)",
+            "ObjectiveClass": "SmartWaypointStateCheckObjective",
+            "Actors": [{
+                "Actor": "DDEK_Key",
+                "WaitState": 2
+            }],
+            "ActorControls": [{
+                    "Actor": "DDEK_Key",
+                    "PreControls": [{
+                            "Cmd": "SetInfo",
+                            "Args": ["DDEK_MP_COMP_Key_Location"]
+                        },
+                        {
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["DDEK_MP_COMP_Key_Location"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "BP5_MaintenanceRack_1",
+                    "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    }],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                }
+            ]
+        },
+        {
+            "Description": "15D1. Maintenance Station: KVM into MP: Insert MP YUBIKEY",
+            "ObjectiveClass": "SmartWaypointStateCheckObjective",
+            "Actors": [{
+                "Actor": "MP_YUBI_Key",
+                "WaitState": 1
+            }],
+            "ActorControls": [{
+                    "Actor": "LARGE_SOFTWARE_BOX_1",
+                    "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    }],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "MP_YUBI_Key",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SmartWaypoint",
+                            "Args": ["MP_YUBI_Key_Location"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "MixedDomainOscilloscope",
+                    "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    }],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                }
+            ]
+        },
+        {
+            "Description": "15D2. Maintenance Station: KVM into MP: When prompted Press YUBIKEY button",
+            "ObjectiveClass": "StateCheckObjective",
+            "CanUndo": false,
+            "Actors": [{
+                "Actor": "MP_YUBI_Key",
+                "WaitState": 2
+            }]
+        },
+        {
+            "Description": "15D3. Turn on Processor Status Window Display",
+            "Invisible": true,
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "ASE1_Display2_Pwr_Button",
+                "WaitState": 1
+            }]
+        },
+        {
+            "Description": "Initializing",
+            "Invisible": true,
+            "ObjectiveClass": "DelayObjective",
+            "Duration": 3,
+            "ActorControls": [{
+                "Actor": "ASE1_Display2",
+                "PreControls": [{
+                        "Cmd": "SetInfo",
+                        "Args": ["Proc Stat->19"]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Sys Stat->0"]
+                    }
+                ]
+            }]
+        },
+        {
+            "Description": "15D3 cont. Maintenance Station: KVM into MP: Log In",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                    "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SetInfo",
+                            "Args": ["Log in"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "ASE1_Display2",
+                    "PreControls": [{
+                            "Cmd": "SetInfo",
+                            "Args": ["Proc Stat->20"]
+                        },
+                        {
+                            "Cmd": "SetInfo",
+                            "Args": ["Sys Stat->0"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Description": "15D4. Maintenance Station: KVM into MP: Open Scripts Folder",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Open Scripts Folder"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "15D5. Maintenance Station: KVM into MP: nra_nrb receive disk script (RUN)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["nra_nrb receive disk script\n...\nRUN"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "15D6. Maintenance Station: KVM into MP: When prompted to power on filer, Press OK",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Press OK"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "15D6i. Maintenance Station: KVM into MP: Use SecureCRT to verify IOLAN connection",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Use SecureCRT to verify IOLAN connection"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "15D7. Processor Rack CBP: FILER PWR NO. 1 and FILER PWR NO. 2 (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FilerPwrNo1",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FilerPwrNo2",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "15D8. Maintenance Station: KVM into MP: Verify FILER is properly booted and received",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Verify FILER is properly booted and received"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "15D9. Maintenance Station: KVM into MP: Initialize MP (Desktop Icon)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Initialize MP (Desktop Icon)"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "15D9i. Maintenance Station: KVM into MP: Initialize MP (Desktop Icon): Date (TODAY'S DATE)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Date\n...\nTODAY'S DATE"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "15D9ii. Maintenance Station: KVM into MP: Initialize MP (Desktop Icon): Date (TODAY'S DATE)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["INIT\n...\nCOLD"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "15D9iii. Maintenance Station: KVM into MP: Initialize MP (Desktop Icon): Date (TODAY'S DATE)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Initialization Panel\n...\nAPPLY"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "15D9iv. Maintenance Station: KVM into MP: Verify MP is Initialized",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Verify MP is Initialized"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "16A. Processor Rack CBP 115VAC 400Hz: Switch the following UP...",
+            "SubDescription": "RPE PRCSR NO. 3A MDP (UP)\nRPE PRCSR NO. 3C SWP (UP)\nRM (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FilerPwrNo1",
+                    "WaitState": "UP",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_FilerPwrNo2",
+                    "WaitState": "UP",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MP",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP5",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DRTPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_KVMSWNo2",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HLPD",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HSDCD",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1A",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1B",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1C",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo1D",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2A",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2B",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2C",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo2D",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3AMDP",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3BFDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3CSWP",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RPEPrcsrNo3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_APA",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_APB",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_QPC",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_HDP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo1",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_XMPNo4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_RM",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_CPS",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_BP4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_5",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_6",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_7",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_8",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Spare_9",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LanSwPwr_SupplyNo1",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_LanSwPwr_SupplyNo2",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DrawFansPrcsrRackBay1/3",
+                    "WaitState": "Out",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_DrawFansPrscrRackSwitch",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaSupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SupplyPwrBrkr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_MaintStaSupplyPwr115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn14SupplyPwr_155V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_Posn17SupplyPwr_115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "ProcessorRackCircuitBreakerPanel_PwrRecept115V400HZ",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "17. Processor Rack: Verify RPE 3A, RPE 3C, and RM are ON",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                    "Actor": "ASE1Preflight_LookAt_RPE3A"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_RPE3C"
+                },
+                {
+                    "Actor": "ASE1Preflight_LookAt_RM"
+                }
+            ]
+        },
+        {
+            "Description": "18A. AEELS RACK: Ensure NTU shows Timelocked",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1_Preflight_NDULookAt"
+            }],
+            "ActorControls": [{
+                    "Actor": "NTUTextDisplay_Top",
+                    "PreControls": [{
+                            "Cmd": "SetInfo",
+                            "Args": ["2~>UTC  TFROM 3   Mar "]
+                        },
+                        {
+                            "Cmd": "Enable",
+                            "Args": [false]
+                        }
+                    ]
+                },
+                {
+                    "Actor": "NTUTextDisplay_Bottom",
+                    "PreControls": [{
+                            "Cmd": "SetInfo",
+                            "Args": ["2~>TimeLocked            "]
+                        },
+                        {
+                            "Cmd": "Enable",
+                            "Args": [false]
+                        }
+                    ]
+                },
+                {
+                    "Actor": "NTUTextDisplay_Top2",
+                    "PreControls": [{
+                            "Cmd": "SetInfo",
+                            "Args": ["2~>2, 2021  /  197:17:47:42."]
+                        },
+                        {
+                            "Cmd": "Enable",
+                            "Args": [false]
+                        }
+                    ]
+                },
+                {
+                    "Actor": "NTUTextDisplay_Bottom2",
+                    "PreControls": [{
+                            "Cmd": "SetInfo",
+                            "Args": ["2~>           GTF 1 ONLINE"]
+                        },
+                        {
+                            "Cmd": "Enable",
+                            "Args": [false]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Description": "19A. Maintenance Station: OWS Power (ON)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "POSN17OWSButton",
+                "WaitState": "On",
+                "Enum": "EOnOff"
+            }]
+        },
+        {
+            "Description": "19B. Maintenance Station: Keying Indicator Panel (ON)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Keying_Indicator_Panel_Power",
+                "WaitState": "On",
+                "Enum": "EOnOff"
+            }],
+            "ActorControls": [{
+                "Actor": "ArrowIndicator_Keying_Indicator_Panel_Power",
+                "PreControls": [{
+                    "Cmd": "Enable",
+                    "Args": [true]
+                }],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "19C cont. Maintenance Station: LCC PTT: MRK 500/501 LAMP TEST (IN)",
+            "SubDescription": "Push in MRK 500/501 Lamp Test Button",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "MRK500/501_LAMPTESTButton",
+                "WaitState": 1
+            }]
+        },
+        {
+            "Description": "19C cont. Maintenance Station: LCC PTT: LCS LAMP TEST (IN)",
+            "SubDescription": "Push in LCC Lamp Test Button",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "LCS_LampTestButton",
+                "WaitState": 1
+            }]
+        },
+        {
+            "Description": "19C cont. Maintenance Station: LCC PTT: Liquid HX LAMP TEST (IN)",
+            "SubDescription": "Push in Liquid HX Lamp Test Button",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Liquid_Mix_LAMPTESTButton",
+                "WaitState": 1
+            }]
+        },
+        {
+            "Description": "20. Verify Personal and professional gear is STOWED and SECURE",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_PlaceablePickup_PersonalGear",
+                "WaitState": 1
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_PlacementLocation_PersonalGear",
+                "PreControls": [{
+                    "Cmd": "Enable",
+                    "Args": [true]
+                }]
+            }]
+        },
+        {
+            "Description": "21. Oxygen Mask DC CBP: All IN",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos21",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos22",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos23",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos14",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos17",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos2",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos5",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos1",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos3",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos4",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos6",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos7",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos8",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos9",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos10",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos11",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos12",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos15",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_LhRow1CrewRestOutbo",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_LhRow1CrewRestInbd",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos16",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_RhCrewRestOutbo",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_RhCrewRestCtr",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_RhCrewRestInbd/Pos13",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_LhRow2CrewRestOutbo",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_LhRow2CrewRestInbd",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_LhRow3CrewRestOutbo",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_LhRow3CrewRestInbd",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos19RestArea",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_Pos20RestArea",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_FwdCargoJumpSeat",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_AftCargoJumpSeat",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "Oxy_Mask_DC_Pwr_Box_MaintStaJumpSeat",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                }
+            ]
+        },
+        {
+            "Description": "22A. Ensure rack doors are latched closed and secured",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "CDRackCBDoor",
+                "WaitState": 0
+            }],
+            "ActorControls": [
+
+            ]
+        },
+        {
+            "Description": "22A. Cont. Inspect the CD Rack and ensure the following...",
+            "SubDescription": "All equipment is secured\nAll blank panels are installed and all rack doors are secure\nAll cables for removed equipment are bagged and secure\nAll circuitbreakers for removed equipment have their power sources locked out",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                    "Actor": "ASE1Preflight_Selectable_CDRackEnsure1",
+                    "OverrideMainText": "Ensure all equipment is secured",
+                    "OverrideButtonText": "Ensure"
+                },
+                {
+                    "Actor": "ASE1Preflight_Selectable_CDRackEnsure2",
+                    "OverrideMainText": "Ensure all blank panels are installed and all rack doors are secure",
+                    "OverrideButtonText": "Ensure"
+                },
+                {
+                    "Actor": "ASE1Preflight_Selectable_CDRackEnsure3",
+                    "OverrideMainText": "Ensure all cables for removed equipment are bagged and secure",
+                    "OverrideButtonText": "Ensure"
+                },
+                {
+                    "Actor": "ASE1Preflight_Selectable_CDRackEnsure4",
+                    "OverrideMainText": "Ensure all circuitbreakers for removed equipment have their power sources locked out",
+                    "OverrideButtonText": "Ensure"
+                }
+            ]
+        },
+        {
+            "Description": "22B. Inspect the Processor Rack and ensure the following...",
+            "SubDescription": "All equipment is secured\nAll blank panels are installed and all rack doors are secure\nAll cables for removed equipment are bagged and secure\nAll circuitbreakers for removed equipment have their power sources locked out",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                    "Actor": "ASE1Preflight_Selectable_ProcRackEnsure1",
+                    "OverrideMainText": "Ensure all equipment is secured",
+                    "OverrideButtonText": "Ensure"
+                },
+                {
+                    "Actor": "ASE1Preflight_Selectable_ProcRackEnsure2",
+                    "OverrideMainText": "Ensure all blank panels are installed and all rack doors are secure",
+                    "OverrideButtonText": "Ensure"
+                },
+                {
+                    "Actor": "ASE1Preflight_Selectable_ProcRackEnsure3",
+                    "OverrideMainText": "Ensure all cables for removed equipment are bagged and secure",
+                    "OverrideButtonText": "Ensure"
+                },
+                {
+                    "Actor": "ASE1Preflight_Selectable_ProcRackEnsure4",
+                    "OverrideMainText": "Ensure all circuitbreakers for removed equipment have their power sources locked out",
+                    "OverrideButtonText": "Ensure"
+                }
+            ]
+        },
+        {
+            "Description": "22C. Inspect the Maintenance Station and ensure the following...",
+            "SubDescription": "All equipment is secured\nAll blank panels are installed and all rack doors are secure\nAll cables for removed equipment are bagged and secure\nAll circuitbreakers for removed equipment have their power sources locked out",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                    "Actor": "ASE1Preflight_Selectable_MainStaEnsure1",
+                    "OverrideMainText": "Ensure all equipment is secured",
+                    "OverrideButtonText": "Ensure"
+                },
+                {
+                    "Actor": "ASE1Preflight_Selectable_MainStaEnsure2",
+                    "OverrideMainText": "Ensure all blank panels are installed and all rack doors are secure",
+                    "OverrideButtonText": "Ensure"
+                },
+                {
+                    "Actor": "ASE1Preflight_Selectable_MainStaEnsure3",
+                    "OverrideMainText": "Ensure all cables for removed equipment are bagged and secure",
+                    "OverrideButtonText": "Ensure"
+                },
+                {
+                    "Actor": "ASE1Preflight_Selectable_MainStaEnsure4",
+                    "OverrideMainText": "Ensure all circuitbreakers for removed equipment have their power sources locked out",
+                    "OverrideButtonText": "Ensure"
+                }
+            ]
+        },
+        {
+            "Description": "23. Check Safety Belt/Shoulder Harness/Internal Lock",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_SafetyBelt"
+            }]
+        },
+        {
+            "Description": "24A1. Interphone: ETD101: INTPH (MONITOR)",
+            "ObjectiveClass": "ETD101Objective",
+            "BindEvent": "INTPH",
+            "Actor": "TouchscreenDisplayETD101_MaintenanceRack_2",
+            "ActorControls": [{
+                "Actor": "TouchscreenDisplayETD101_MaintenanceRack_2",
+                "PreControls": [{
+                        "Cmd": "SetInfo",
+                        "Args": ["Monitoring INTPH"]
+                    },
+                    {
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "24A2. Interphone: ETD101: PVT INTPH (MONITOR)",
+            "ObjectiveClass": "ETD101Objective",
+            "BindEvent": "PVTINTPH",
+            "Actor": "TouchscreenDisplayETD101_MaintenanceRack_2",
+            "ActorControls": [{
+                "Actor": "TouchscreenDisplayETD101_MaintenanceRack_2",
+                "PreControls": [{
+                        "Cmd": "SetInfo",
+                        "Args": ["Monitoring PVT"]
+                    },
+                    {
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "24A3. Interphone: ETD101: MAINT (MONITOR)",
+            "ObjectiveClass": "ETD101Objective",
+            "BindEvent": "MAINT",
+            "Actor": "TouchscreenDisplayETD101_MaintenanceRack_2",
+            "ActorControls": [{
+                "Actor": "TouchscreenDisplayETD101_MaintenanceRack_2",
+                "PreControls": [{
+                        "Cmd": "SetInfo",
+                        "Args": ["Monitoring MAINT"]
+                    },
+                    {
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "24A4. Interphone: ETD101: Monitor Mission Radios",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_Pos17General",
+                "OverrideMainText": "Monitor Mission Radios",
+                "OverrideButtonText": "Monitor"
+            }]
+        },
+        {
+            "Description": "25A1. Oxygen Regulator Checks: Switch Supply Lever On (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "OxygenRegulator_MaintenanceRack_SupplyLever_3",
+                "WaitState": "Up",
+                "Enum": "EToggleSwitch2State"
+            }]
+        },
+        {
+            "Description": "25A2. Verify Pressure Gauge is APPROX 300 PSI",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_PressureGauge"
+            }]
+        },
+        {
+            "Description": "25A3. Remove Oxygen Mask from Quick Don Bag, Connect Oxygen Mask hose to workstation",
+            "ObjectiveClass": "O2MaskObjective",
+            "BindEvent": "HoseAttached",
+            "ActorUID": "ASE1Preflight_OxygenMask",
+            "ActorControls": [{
+                    "Actor": "MaintStationOxygenHose2",
+                    "PreControls": [{
+                        "Cmd": "Highlight",
+                        "Args": [true]
+                    }],
+                    "Postcontrols": [{
+                        "Cmd": "Highlight",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "ASE1Preflight_OxygenMask",
+                    "PreControls": [{
+                        "Cmd": "Highlight",
+                        "Args": [true]
+                    }],
+                    "Postcontrols": [{
+                        "Cmd": "Highlight",
+                        "Args": [false]
+                    }]
+                }
+            ]
+        },
+        {
+            "Description": "25A3 cont. Don Oxygen Mask",
+            "SubDescription": "Pick up with grip button and pull towards your face",
+            "ObjectiveClass": "O2MaskObjective",
+            "BindEvent": "MaskDonned",
+            "ActorUID": "ASE1Preflight_OxygenMask",
+            "ActorControls": [{
+                "Actor": "ASE1_ETDHeadset",
+                "PreControls": [{
+                    "Cmd": "Wear Headset",
+                    "Args": ["ASE1_ETDHeadset"]
+                }]
+            }]
+        },
+        {
+            "Description": "25A3 cont. Tighten mask to avoid mask fogging",
+            "SubDescription": "Tighten mask at back of head with the 'interact' button",
+            "ObjectiveClass": "O2MaskObjective",
+            "BindEvent": "MaskTightened",
+            "ActorUID": "ASE1Preflight_OxygenMask"
+        },
+        {
+            "Description": "25A4. Switch Diluter Lever to 100% Oxygen (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "OxygenRegulator_MaintenanceRack_RegulatorDiluterLever_3",
+                "WaitState": "Up",
+                "Enum": "EToggleSwitch2State"
+            }]
+        },
+        {
+            "Description": "25A5. Switch Toggle Lever to TEST MASK (HOLD DOWN) for at least 2 seconds",
+            "ObjectiveClass": "HeldToggleSwitchObjective",
+            "Actors": [{
+                "Actor": "OxygenRegulator_MaintenanceRack_EmergencyOxygenToggleLever_3"
+            }],
+            "ActorControls": [{
+                "Actor": "OxygenMaintenanceStation3ProgressBar",
+                "PreControls": [{
+                    "Cmd": "SetInfo",
+                    "Args": ["2.0~>0.05"]
+                }]
+            }]
+        },
+        {
+            "Description": "25A6. While holding Toggle Lever to TEST MASK, verify no flow indication on regulator",
+            "SubDescription": "Note: Flow is shown as white on indicator",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_FlowIndicator"
+            }]
+        },
+        {
+            "Description": "25A6 cont. While holding Toggle Lever to TEST MASK, verify no flow around mask",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_MainStaEnsure1",
+                "OverrideMainText": "Verify no flow around mask",
+                "OverrideButtonText": "Verified"
+            }]
+        },
+        {
+            "Description": "25A7. Switch Toggle Lever to EMERGENCY (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "OxygenRegulator_MaintenanceRack_EmergencyOxygenToggleLever_3",
+                "WaitState": "Up",
+                "Enum": "EToggleSwitch3State"
+            }]
+        },
+        {
+            "Description": "25A8. Press the Breathe button to simulate taking full breaths -- Wait for 3 full cycles",
+            "SubDescription": "Indicator should alternate between black and white\nRelease button to simulate holding breath; a white indicator when breath is held indicates a leak",
+            "ObjectiveClass": "StateCheckObjective",
+            "CanUndo": false,
+            "Actors": [{
+                "Actor": "ASE1Preflight_O2Regulator22_BreathIndicator",
+                "WaitState": 3
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_O2Regulator22_BreathIndicator",
+                "PreControls": [{
+                    "Cmd": "Enable",
+                    "Args": [true]
+                }],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "25A9. Switch Diluter Lever to NORMAL OXYGEN (DOWN) ",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "OxygenRegulator_MaintenanceRack_RegulatorDiluterLever_3",
+                "WaitState": "Down",
+                "Enum": "EToggleSwitch2State"
+            }]
+        },
+        {
+            "Description": "25A10. Check for no flow while holding breath",
+            "SubDescription": "Note: Flow is shown as white on indicator",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_FlowIndicator"
+            }]
+        },
+        {
+            "Description": "25A11. Switch Toggle Lever to NORMAL (Middle)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "OxygenRegulator_MaintenanceRack_EmergencyOxygenToggleLever_3",
+                "WaitState": "Middle",
+                "Enum": "EToggleSwitch3State"
+            }]
+        },
+        {
+            "Description": "25A12. Switch Diluter Lever to 100% Oxygen (UP) ",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "OxygenRegulator_MaintenanceRack_RegulatorDiluterLever_3",
+                "WaitState": "Up",
+                "Enum": "EToggleSwitch2State"
+            }]
+        },
+        {
+            "Description": "25A13. Ensure audio is heard and oxygen mask microphone functions",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_MainStaEnsure1",
+                "OverrideMainText": "Ensure audio is heard and oxygen mask microphone functions",
+                "OverrideButtonText": "Acknowledged"
+            }]
+        },
+        {
+            "Description": "25A14. Switch Supply Lever Off (DOWN)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "OxygenRegulator_MaintenanceRack_SupplyLever_3",
+                "WaitState": "Down",
+                "Enum": "EToggleSwitch2State"
+            }]
+        },
+        {
+            "Description": "25A15. Switch Toggle Lever to TEST MASK (HOLD DOWN) and hold down to Bleed oxygen",
+            "ObjectiveClass": "HeldToggleSwitchObjective",
+            "Actors": [{
+                "Actor": "OxygenRegulator_MaintenanceRack_EmergencyOxygenToggleLever_3"
+            }],
+            "ActorControls": [{
+                "Actor": "OxygenMaintenanceStation3ProgressBar",
+                "PreControls": [{
+                    "Cmd": "SetInfo",
+                    "Args": ["2.0~>0.05"]
+                }]
+            }]
+        },
+        {
+            "Description": "25A16. The ability to breathe unrestricted at this point is an indicator of a faulty regulator",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_MainStaEnsure1",
+                "OverrideMainText": "The ability to breathe unrestricted at this point is an indicator of a faulty regulator.",
+                "OverrideButtonText": "Acknowledge"
+            }]
+        },
+        {
+            "Description": "25A17. Remove Oxygen Mask",
+            "SubDescription": "Remove with grip button at back of head",
+            "ObjectiveClass": "O2MaskObjective",
+            "BindEvent": "MaskDoffed",
+            "ActorUID": "ASE1Preflight_OxygenMask"
+        },
+
+        {
+            "Description": "25B1. Oxygen Checks: MA-1 Oxygen Bottle(s): Verify Pressure: APPROX 300 PSI",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_MA-1BottlePressure_1"
+            }]
+        },
+        {
+            "Description": "25B2. Oxygen Checks: MA-1 Oxygen Bottle(s): Verify Altitude Selector: Normal",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_MA-1BottleAltitude_1"
+            }]
+        },
+        {
+            "Description": "25B1 cont. Oxygen Checks: MA-1 Oxygen Bottle(s): Verify Pressure: APPROX 300 PSI",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "Preflight_LookAt_MA-1BottlePressure_2"
+            }]
+        },
+        {
+            "Description": "25B2 cont. Oxygen Checks: MA-1 Oxygen Bottle(s): Verify Altitude Selector: Normal",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "Preflight_LookAt_MA-1BottleAltitude_2"
+            }]
+        },
+        {
+            "Description": "25B1 cont. Oxygen Checks: MA-1 Oxygen Bottle(s): Verify Pressure: APPROX 300 PSI",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "Preflight_LookAt_MA-1BottlePressure_3"
+            }]
+        },
+        {
+            "Description": "25B2 cont. Oxygen Checks: MA-1 Oxygen Bottle(s): Verify Altitude Selector: Normal",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "Preflight_LookAt_MA-1BottleAltitude_3"
+            }]
+        },
+
+        {
+            "Description": "26. AQUIRE AND CHECK EPOS",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_EPOS"
+            }]
+        },
+        {
+            "Description": "27. Inspect Viking Suit (if required)",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_Pos17GearCheck",
+                "OverrideMainText": "Inspect Viking Suit (if required)",
+                "OverrideButtonText": "Inspect"
+            }]
+        },
+        {
+            "Description": "28. INSPECT AND SIZE Life Vest (if required)",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_Pos17GearCheck",
+                "OverrideMainText": "INSPECT AND SIZE Life Vest (if required)",
+                "OverrideButtonText": "INSPECT AND SIZE"
+            }]
+        },
+        {
+            "Description": "29. INSTALLED & SECURE Maintenance Observer Seat (if required)",
+            "ObjectiveClass": "PlaceHolderObjective"
+        },
+        {
+            "Description": "30A. Maintenance Station: KVM into MDP",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["KVM into MDP"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "30A1. Maintenance Station: KVM into MDP: Login to MDP",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Login to MDP"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "30A2. Maintenance Station: KVM into MDP: Select proper classification",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Select proper classification"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "30B. Maintenance Station: KVM into OWS",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                    "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SetInfo",
+                            "Args": ["KVM into OWS"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "ASE1_Display2",
+                    "PreControls": [{
+                            "Cmd": "SetInfo",
+                            "Args": ["Proc Stat->6"]
+                        },
+                        {
+                            "Cmd": "SetInfo",
+                            "Args": ["Sys Stat->0"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Description": "30B1. Maintenance Station: KVM into OWS: Login to OWS",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Login to OWS"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "30B1i. Maintenance Station: KVM into OWS: Verify OTP Loaded as MT 1",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Verify OTP Loaded as MT 1"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "30B2. Maintenance Station: Error Queues: CONFIGURE AS REQUIRED",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Configure Error Queues as required"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "30C. Maintenance Station: Processor Status Window: MDP: COLD",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["MDP\n...\nCOLD"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "30C cont. Maintenance Station: Processor Status Window: MDP: Verify correct MSNFL, Date, and Route data",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["MDP\n...\nVerify correct MSNFL, Date, and Route data"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "30C cont. Maintenance Station: Processor Status Window: MDP: Apply/Continue",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["MDP\n...\nApply/Continue"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "30C cont. Maintenance Station: Processor Status Window: Monitor Messages: INITIALIZATION COMPLETE",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Monitor Messages\n...\nINITIALIZATION COMPLETE"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "30C cont. Maintenance Station: Processor Status Window: RM: Verify LOAD",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                "PreControls": [{
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["RM\n...\nVerify LOAD"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "NOTE\nCD Rack",
+            "SubDescription": "Ensure the CD LAN switch and RM is fully booted before booting CDS",
+            "ObjectiveClass": "UISelectObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_Selectable_CDRackEnsure2",
+                "OverrideMainText": "<LargeText>NOTE:</>\n\n <SmallText>Ensure the CD LAN switch and RM is fully booted before booting CDS</>",
+                "OverrideButtonText": "ACKNOWLEDGED",
+                "ScrollBlockButton": true
+            }],
+            "ActorControls": [{
+                "Actor": "ASE1_Display2",
+                "PreControls": [{
+                        "Cmd": "SetInfo",
+                        "Args": ["Proc Stat->7"]
+                    },
+                    {
+                        "Cmd": "SetInfo",
+                        "Args": ["Sys Stat->0"]
+                    }
+                ]
+            }]
+        },
+        {
+            "Description": "31. CD Rack CBP: 115VAC 400Hz: CDS (UP)",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_3",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_4",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_CDS",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_BP2",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_NDU_A",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_NDU_B",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_ECP",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_IMPPwrSupply",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_NPC",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_BPI",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_TNT",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_JLP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_JRE",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_PwrRecept115V400HZ",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_SP",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_MPE",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_5",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_6",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_SiprTokenPwrSupply",
+                    "WaitState": "Up",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_7",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_EAP139PreampLH",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_EAP139PreampRH",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_8",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_Spare_9",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCSPumpNo1",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_LCSPumpNo2",
+                    "WaitState": "In",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_EPR262Block",
+                    "WaitState": "Out",
+                    "Enum": "EInOut"
+                },
+                {
+                    "Actor": "CDRackCircuitBreakerPanel_PwrReceptFC2_115V400HZ",
+                    "WaitState": "Down",
+                    "Enum": "EToggleSwitch2State"
+                }
+            ]
+        },
+        {
+            "Description": "32. CD Rack: Verify CDS On",
+            "ObjectiveClass": "LookAtObjective",
+            "Actors": [{
+                "Actor": "ASE1Preflight_LookAt_CDCBRack_CDSPower"
+            }]
+        },
+        {
+            "Description": "32 cont. Key CDS",
+            "ObjectiveClass": "SmartWaypointStateCheckObjective",
+            "Actors": [{
+                "Actor": "DDEK_Key",
+                "WaitState": 3
+            }],
+            "ActorControls": [{
+                "Actor": "DDEK_Key",
+                "PreControls": [{
+                        "Cmd": "SetInfo",
+                        "Args": ["DDEK_CDS_COMP_Key_Location"]
+                    },
+                    {
+                        "Cmd": "Enable",
+                        "Args": [true]
+                    },
+                    {
+                        "Cmd": "SmartWaypoint",
+                        "Args": ["DDEK_CDS_COMP_Key_Location"]
+                    }
+                ],
+                "PostControls": [{
+                    "Cmd": "Enable",
+                    "Args": [false]
+                }]
+            }]
+        },
+        {
+            "Description": "32 cont. Reset CDS",
+            "ObjectiveClass": "StateCheckObjective",
+            "CanUndo": false,
+            "Actors": [{
+                "Actor": "CDS_COMP_Reset",
+                "WaitState": "On",
+                "Enum": "EOnOff"
+            }]
+        },
+        {
+            "Description": "33A1. Maintenance Station: Processor Status Window: CDS Verify LOAD",
+            "ObjectiveClass": "StateCheckObjective",
+            "Actors": [{
+                "Actor": "Pos17Keyboard",
+                "WaitState": 1,
+                "PostSetState": 0
+            }],
+            "ActorControls": [{
+                    "Actor": "ASE1Preflight_Info_UnderGlassKVM",
+                    "PreControls": [{
+                            "Cmd": "Enable",
+                            "Args": [true]
+                        },
+                        {
+                            "Cmd": "SetInfo",
+                            "Args": ["CDS\n...\nVerify LOAD"]
+                        }
+                    ],
+                    "PostControls": [{
+                        "Cmd": "Enable",
+                        "Args": [false]
+                    }]
+                },
+                {
+                    "Actor": "ASE1_Display2",
+                    "PreControls": [{
+                            "Cmd": "SetInfo",
+                            "Args": ["Proc Stat->5"]
+                        },
+                        {
+                            "Cmd": "SetInfo",
+                            "Args": ["Sys Stat->0"]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "Description": "34. Inform ASE 3 preflight is complete",
+            "ObjectiveClass": "ETD101Objective",
+            "BindEvent": "CallMAINT",
+            "Actor": "TouchscreenDisplayETD101_MaintenanceRack_2",
+            "ActorControls": [{
+                "Actor": "TouchscreenDisplayETD101_MaintenanceRack_2",
+                "PreControls": [{
+                    "Cmd": "SetInfo",
+                    "Args": ["No Info~>1"]
+                }]
+            }]
+        },
+        {
+            "Description": "34 cont. Interphone: ETD101: Push to Talk",
+            "SubDescription": "Hold Down Push to Talk Button for 2 seconds",
+            "ObjectiveClass": "HeldToggleSwitchObjective",
+            "Actors": [{
+                "Actor": "U94PTT"
+            }],
+            "ActorControls": [{
+                "Actor": "U94PTT_PROGRESSBAR",
+                "PreControls": [{
+                    "Cmd": "SetInfo",
+                    "Args": ["2.0~>Preflight is complete"]
+                }]
+            }]
+        },
+        {
+            "Description": "35. Crew Report - When prompted by AC in position order on CALL: \"ASE 1\"",
+            "ObjectiveClass": "StateCheckObjective",
+            "CanUndo": false,
+            "Actors": [{
+                "Actor": "ETD101_MaintenanceRack2_Call",
+                "WaitState": "On",
+                "Enum": "EOnOff"
+            }]
+        },
+        {
+            "Description": "ASE 1 Preflight Checklist is Complete",
+            "Invisible": true,
+            "ObjectiveClass": "DelayObjective",
+            "Duration": 5
+        }
+    ]
+}
